@@ -1,0 +1,25 @@
+#!/usr/bin/env node
+
+"use strict";
+
+const app = require('../app');
+const debug = require('debug')('express-template:server');
+const http = require('http');
+const fs = require('fs');
+
+const PORT = process.env.PORT || '9989';
+app.set('port', PORT);
+
+var server = http.createServer(app);
+
+server.listen(PORT);
+
+server.on('error', error => {
+    console.log(error);
+});
+
+server.on('listening', () => {
+    var addr = server.address();
+    var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+    debug('Listening on ' + bind);
+});

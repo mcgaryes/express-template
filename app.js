@@ -35,6 +35,10 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use(express.static(path.join(__dirname, '../node_modules')));
+app.use(express.static(path.join(__dirname,'public')));
+
 app.use(compression());
 
 // route handling
@@ -63,9 +67,4 @@ app.use((err, req, res) => {
 // === Startup ================================================
 // ============================================================
 
-var httpServer = http.createServer(app);
-const PORT = process.env.PORT || 3000;
-
-httpServer.listen(PORT, () => {
-    console.log('HTTP server running at %d', PORT);
-});
+module.exports = app;
